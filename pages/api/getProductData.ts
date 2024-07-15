@@ -1,16 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import * as msal from '@azure/msal-node';
+import cors, { runMiddleware } from '../../middleware/cors';
 
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
-const tenant_id = process.env.TENANT_ID;
+const client_id = process.env.CLIENT_ID!;
+const client_secret = process.env.CLIENT_SECRET!;
+const tenant_id = process.env.TENANT_ID!;
 const authority = `https://login.microsoftonline.com/${tenant_id}`;
 const scope = ["https://wecare-ii.crm5.dynamics.com/.default"];
-
-if (!client_id || !client_secret || !tenant_id) {
-  throw new Error('Missing environment variables for authentication');
-}
 
 const app = new msal.ConfidentialClientApplication({
   auth: {
@@ -35,6 +32,8 @@ async function getToken() {
 }
 
 const getProductData = async (req: NextApiRequest, res: NextApiResponse) => {
+  // Chạy middleware CORS
+  await runMiddleware(req, res, cors);
 
   const table = "crdfd_productses";
   const columns = "crdfd_thuonghieu,crdfd_quycach,crdfd_chatlieu,crdfd_hoanthienbemat,crdfd_nhomsanphamtext";
