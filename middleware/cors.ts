@@ -4,7 +4,7 @@ import Cors from 'cors';
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['GET', 'HEAD'],
-  origin: ['https://demoapp1-qksq1sdpr-wecare2.vercel.app', 'https://builder.io'], // Thay đổi thành danh sách các domain được phép truy cập
+  origin: ['http://localhost:3000', 'https://builder.io', 'https://demoapp1-qksq1sdpr-wecare2.vercel.app'], // Thay đổi thành danh sách các domain được phép truy cập
 });
 
 // Helper method to wait for a middleware to execute before continuing
