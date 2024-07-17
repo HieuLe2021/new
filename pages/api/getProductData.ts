@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import * as msal from '@azure/msal-node';
-import cors, { runMiddleware } from '../../middleware/cors';
+
 
 const client_id = process.env.CLIENT_ID!;
 const client_secret = process.env.CLIENT_SECRET!;
@@ -32,8 +32,7 @@ async function getToken() {
 }
 
 const getProductData = async (req: NextApiRequest, res: NextApiResponse) => {
-  // Chạy middleware CORS
-  await runMiddleware(req, res, cors);
+
 
   const table = "crdfd_productses";
   const columns = "crdfd_thuonghieu,crdfd_quycach,crdfd_chatlieu,crdfd_hoanthienbemat,crdfd_nhomsanphamtext";
